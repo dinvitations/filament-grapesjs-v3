@@ -17,20 +17,27 @@ document.addEventListener('alpine:init', () => {
                     fromElement: true,
                     noticeOnUnload: false,
                     storageManager: false,
-                    loadHtml: state,
+                    loadHtml: state?.html,
+                    loadCss: state?.css,
                     plugins: plugins,
                     ...settings
                 }
                 this.instance =  grapesjs.init( allSettings );
                 this.instance.on('update', e => {
-                    var content = this.instance.getHtml({
+                    var rawHtml = this.instance.getHtml({
                         cleanId: true
                     });
-                    var extract = content.match(/<body\b[^>]*>([\s\S]*?)<\/body>/);
-                    if(extract)
-                        this.state = extract[1];
-                    else
-                        this.state = this.instance.getHtml();
+                    var cssContent = this.instance.getCss();
+                    var jsContent = this.instance.getJs();
+
+                    var extract = rawHtml.match(/<body\b[^>]*>([\s\S]*?)<\/body>/);
+                    var htmlContent = extract ? extract[1] : rawHtml;
+
+                    this.state = {
+                        html: htmlContent,
+                        css: cssContent,
+                        js: jsContent
+                    };
                 })
             }
         })

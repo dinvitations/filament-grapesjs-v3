@@ -25,6 +25,10 @@ class GrapesJs extends Field
 
     protected string $htmlData;
 
+    protected string $cssData;
+
+    protected string $jsData;
+
     protected int | Closure | null $minHeight = 768;
 
     public function minHeight(int | Closure | null $minHeight): static
@@ -41,7 +45,17 @@ class GrapesJs extends Field
 
     public function getHtmlData()
     {
-        return $this->evaluate($this->getState());
+        return $this->evaluate($this->getState()['html'] ?? null);
+    }
+
+    public function getCssData()
+    {
+        return $this->evaluate($this->getState()['css'] ?? null);
+    }
+
+    public function getJsData()
+    {
+        return $this->evaluate($this->getState()['js'] ?? null);
     }
 
     public function tools(array | Closure $tools): static
