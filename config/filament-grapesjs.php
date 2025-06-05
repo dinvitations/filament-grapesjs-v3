@@ -14,13 +14,13 @@ return [
     'assets' => [
 
         'css' => [
-            // slug => path to js file in your resources directory
-           // 'slug' => 'path/to/js/file.js',
+            // slug => path to css file in your resources directory
+           // 'slug' => 'path/to/css/file.css',
         ],
 
         'js' => [
-            // slug => path to css file in your resources directory
-            // 'slug' => 'path/to/css/file.css',
+            // slug => path to js file in your resources directory
+            // 'slug' => 'path/to/js/file.js',
         ]
     ]
 ];
