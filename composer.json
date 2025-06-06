@@ -1,5 +1,6 @@
 {
-  "name": "dotswan/filament-grapesjs-v3",
+  "name": "dinvitations/filament-grapesjs-v3",
+  "type": "library",
   "description": "",
   "keywords": [
     "dotswan",
