@@ -17,14 +17,19 @@ document.addEventListener('alpine:init', () => {
                     fromElement: true,
                     noticeOnUnload: false,
                     storageManager: false,
-                    loadProjectData: state?.projectData,
-                    loadHtml: state?.html,
-                    loadCss: state?.css,
-                    loadJs: state?.js,
                     plugins: plugins,
                     ...settings
                 }
                 this.instance =  grapesjs.init( allSettings );
+                this.instance.on('load', e => {
+                    if (this.state?.projectData) {
+                        const projectData = typeof this.state.projectData === 'string'
+                            ? JSON.parse(this.state.projectData)
+                            : this.state.projectData;
+
+                        this.instance.loadProjectData(projectData);
+                    }
+                });
                 this.instance.on('update', e => {
                     var projectData = this.instance.getProjectData();
                     var rawHtml = this.instance.getHtml({

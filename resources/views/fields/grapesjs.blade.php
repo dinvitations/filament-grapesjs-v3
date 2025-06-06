@@ -24,8 +24,7 @@
             tools: @js($getTools()),
             plugins: @js($getPlugins()),
             settings: @js($getSettings()),
-            minHeight: @js($getMinHeight()),
-            loadProjectData: @js($getProjectData())
+            minHeight: @js($getMinHeight())
         })"
 >
 
