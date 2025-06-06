@@ -22,18 +22,18 @@ document.addEventListener('alpine:init', () => {
                 }
                 this.instance =  grapesjs.init( allSettings );
                 this.instance.on('load', e => {
-                    if (this.state?.grapesjs?.projectData) {
+                    if (isNotEmpty(this.state?.grapesjs?.projectData)) {
                         this.instance.loadProjectData(JSON.parse(this.state.grapesjs.projectData));
                     } else {
-                        if (this.state?.grapesjs?.components) {
+                        if (isNotEmpty(this.state?.grapesjs?.components)) {
                             this.instance.setComponents(JSON.parse(this.state.grapesjs.components));
-                        } else if (this.state?.html) {
+                        } else if (isNotEmpty(this.state?.html)) {
                             this.instance.setComponents(this.state.html);
                         }
 
-                        if (this.state?.grapesjs?.style) {
+                        if (isNotEmpty(this.state?.grapesjs?.style)) {
                             this.instance.setStyle(JSON.parse(this.state.grapesjs.style));
-                        } else if (this.state?.css) {
+                        } else if (isNotEmpty(this.state?.css)) {
                             this.instance.setStyle(this.state.css);
                         }
                     }
@@ -67,3 +67,21 @@ document.addEventListener('alpine:init', () => {
         })
     )
 })
+
+function isNotEmpty(val) {
+    if (val === null || val === undefined) return false;
+
+    if (Array.isArray(val)) {
+        return val.length > 0;
+    }
+
+    if (typeof val === 'object') {
+        return Object.keys(val).length > 0;
+    }
+
+    if (typeof val === 'string') {
+        return val.trim() !== '' && val.trim() !== '0';
+    }
+
+    return !!val;
+}
