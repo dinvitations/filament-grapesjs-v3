@@ -17,6 +17,7 @@ document.addEventListener('alpine:init', () => {
                     fromElement: true,
                     noticeOnUnload: false,
                     storageManager: false,
+                    loadProjectData: state?.projectData,
                     loadHtml: state?.html,
                     loadCss: state?.css,
                     loadJs: state?.js,
@@ -25,6 +26,7 @@ document.addEventListener('alpine:init', () => {
                 }
                 this.instance =  grapesjs.init( allSettings );
                 this.instance.on('update', e => {
+                    var projectData = this.instance.getProjectData();
                     var rawHtml = this.instance.getHtml({
                         cleanId: true
                     });
@@ -35,6 +37,7 @@ document.addEventListener('alpine:init', () => {
                     var htmlContent = extract ? extract[1] : rawHtml;
 
                     this.state = {
+                        projectData,
                         html: htmlContent,
                         css: cssContent,
                         js: jsContent

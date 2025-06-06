@@ -24,7 +24,8 @@
             tools: @js($getTools()),
             plugins: @js($getPlugins()),
             settings: @js($getSettings()),
-            minHeight: @js($getMinHeight())
+            minHeight: @js($getMinHeight()),
+            loadProjectData: @js($getProjectData())
         })"
 >
 
@@ -32,14 +33,6 @@
         id='gjs_{{$getId()}}'
         class="grapesjs-wrapper"
     >
-        {!! $getHtmlData() !!}
-        @if(!empty($getCssData()))
-            <style>{!! $getCssData() !!}</style>
-        @endif
-
-        @if(!empty($getJsData()))
-            <script>{!! $getJsData() !!}</script>
-        @endif
     </div>
 
 </div>

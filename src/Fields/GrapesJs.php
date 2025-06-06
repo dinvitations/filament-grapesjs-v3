@@ -23,6 +23,8 @@ class GrapesJs extends Field
 
     protected array | Closure $settings = [];
 
+    protected string $projectData;
+
     protected string $htmlData;
 
     protected string $cssData;
@@ -41,6 +43,11 @@ class GrapesJs extends Field
     public function getMinHeight(): ?int
     {
         return $this->evaluate($this->minHeight);
+    }
+
+    public function getProjectData()
+    {
+        return $this->evaluate($this->getState()['projectData'] ?? null);
     }
 
     public function getHtmlData()
