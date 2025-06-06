@@ -19,6 +19,7 @@ document.addEventListener('alpine:init', () => {
                     storageManager: false,
                     loadHtml: state?.html,
                     loadCss: state?.css,
+                    loadJs: state?.js,
                     plugins: plugins,
                     ...settings
                 }

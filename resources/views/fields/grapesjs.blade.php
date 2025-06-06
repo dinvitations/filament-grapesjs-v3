@@ -33,6 +33,13 @@
         class="grapesjs-wrapper"
     >
         {!! $getHtmlData() !!}
+        @if(!empty($getCssData()))
+            <style>{!! $getCssData() !!}</style>
+        @endif
+
+        @if(!empty($getJsData()))
+            <script>{!! $getJsData() !!}</script>
+        @endif
     </div>
 
 </div>
