@@ -22,16 +22,27 @@ document.addEventListener('alpine:init', () => {
                 }
                 this.instance =  grapesjs.init( allSettings );
                 this.instance.on('load', e => {
-                    if (this.state?.projectData) {
-                        const projectData = typeof this.state.projectData === 'string'
-                            ? JSON.parse(this.state.projectData)
-                            : this.state.projectData;
+                    if (this.state?.grapesjs?.projectData) {
+                        this.instance.loadProjectData(JSON.parse(this.state.grapesjs.projectData));
+                    } else {
+                        if (this.state?.grapesjs?.components) {
+                            this.instance.setComponents(JSON.parse(this.state.grapesjs.components));
+                        } else if (this.state?.html) {
+                            this.instance.setComponents(this.state.html);
+                        }
 
-                        this.instance.loadProjectData(projectData);
+                        if (this.state?.grapesjs?.style) {
+                            this.instance.setStyle(JSON.parse(this.state.grapesjs.style));
+                        } else if (this.state?.css) {
+                            this.instance.setStyle(this.state.css);
+                        }
                     }
                 });
                 this.instance.on('update', e => {
                     var projectData = this.instance.getProjectData();
+                    var components = this.instance.getComponents();
+                    var styles = this.instance.getStyle();
+
                     var rawHtml = this.instance.getHtml({
                         cleanId: true
                     });
@@ -42,7 +53,11 @@ document.addEventListener('alpine:init', () => {
                     var htmlContent = extract ? extract[1] : rawHtml;
 
                     this.state = {
-                        projectData,
+                        grapesjs: {
+                            projectData,
+                            components,
+                            styles
+                        },
                         html: htmlContent,
                         css: cssContent,
                         js: jsContent
