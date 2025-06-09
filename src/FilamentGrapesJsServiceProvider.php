@@ -79,11 +79,17 @@ class FilamentGrapesJsServiceProvider extends PackageServiceProvider
         {
             foreach ($assets as $slug => $path)
             {
-                $file = resource_path($path);
-                if (!file_exists($file))
-                {
-                    continue;
+                if (filter_var($path, FILTER_VALIDATE_URL)) {
+                    $file = $path;
+                } else {
+                    $file = resource_path($path);
+
+                    if (!file_exists($file))
+                    {
+                        continue;
+                    }
                 }
+
                 if ($type === 'css')
                 {
                     $files[] = Css::make($slug, $file);
