@@ -3,7 +3,7 @@ let grapesInstance = null;
 document.addEventListener('alpine:init', () => {
     Alpine.data(
         "grapesjs",
-        ({ state, statePath, readOnly, tools, minHeight, container, plugins, settings }) => ({
+        ({ $wire, state, statePath, readOnly, tools, minHeight, container, plugins, settings }) => ({
             instance: null,
             state,
             tools,
@@ -85,10 +85,28 @@ document.addEventListener('alpine:init', () => {
                         js: jsContent
                     };
                 });
+
+                $wire.on('refreshGrapesJs', () => {
+                    this.refreshGrapesJs();
+                });
+            },
+
+            refreshGrapesJs() {
+                if (!grapesInstance || !this.state?.grapesjs?.projectData) return;
+
+                try {
+                    const projectData = JSON.parse(this.state.grapesjs.projectData);
+                    grapesInstance.loadProjectData(projectData);
+                } catch (e) {
+                    console.error('Failed to refresh GrapesJS project data:', e);
+                }
             }
         })
     );
+
+    window.dispatchEvent(new CustomEvent('grapesjs-script-loaded'));
 });
+
 
 function isNotEmpty(val) {
     if (val === null || val === undefined) return false;
