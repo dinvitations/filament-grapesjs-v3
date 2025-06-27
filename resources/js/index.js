@@ -44,6 +44,22 @@ document.addEventListener('alpine:init', () => {
                             grapesInstance.setStyle(this.state.css);
                         }
                     }
+
+                    if (settings?.disableDrag) {
+                        grapesInstance.getWrapper().find('*').forEach(comp => {
+                            comp.set({
+                                draggable: false,
+                                droppable: false,
+                                selectable: true,
+                                hoverable: true,
+                                highlightable: true,
+                            });
+
+                            comp.set('resizable', false);
+                        });
+                        grapesInstance.BlockManager.getAll().reset();
+                        grapesInstance.on('component:drag:start', (ev) => ev.abort());
+                    }
                 });
 
                 grapesInstance.on('update', () => {
