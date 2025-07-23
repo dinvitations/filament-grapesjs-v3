@@ -98,6 +98,7 @@ document.addEventListener('alpine:init', () => {
                     const htmlContent = extract ? extract[1] : rawHtml;
 
                     this.state = {
+                        ...this.state,
                         grapesjs: {
                             projectData,
                             components,
