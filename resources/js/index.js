@@ -83,6 +83,13 @@ document.addEventListener('alpine:init', () => {
                             });
                         });
                     }
+
+                    if (settings?.disableCodeEditor) {
+                        const hasButton = grapesInstance.Panels.getButton('views', 'open-code');
+                        if (hasButton) {
+                            grapesInstance.Panels.removeButton('views', 'open-code');
+                        }
+                    }
                 });
 
                 grapesInstance.on('update', () => {
